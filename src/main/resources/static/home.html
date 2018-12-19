@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+</head>
+<!-- 新 Bootstrap 核心 CSS 文件 -->
+<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
+<!-- 可选的Bootstrap主题文件（一般不用引入） -->
+<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap-theme.min.css">
+<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+<script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery/1.12.1/jquery.js"></script>
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+
+<!--引入Echarts所需Js-->
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js"></script>
+<script src="http://echarts.baidu.com/build/dist/echarts.js"></script>
+
+<style type="text/css">
+
+</style>
+<body>
+
+<nav class="navbar navbar-inverse" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">后台管理系统</a>
+        </div>
+        <div>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="active"><a href="#">首页</a></li>
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        Java <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">客户列表</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">物品列表</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">历史记录</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">服务列表</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">退出(Exit)</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+    <div class='container'>
+        <div class='row'>
+            <div class='row'>
+                <div class='col-lg-12' id="Histogram"></div>
+            </div>
+        </div>
+    </div>
+
+</body>
+<script type="text/javascript">
+    var myChart = echarts.init(document.getElementById('main'));
+    // 显示标题，图例和空的坐标轴
+    myChart.setOption({
+        title: {
+            text: '营业额'
+        },
+        tooltip: {},
+        legend: {
+            data:['营业额']
+        },
+        xAxis: {
+            data: []
+        },
+        yAxis: {},
+        series: [{
+            name: '营业额',
+            type: 'bar',
+            data: []
+        }]
+    });
+
+    myChart.showLoading();    //数据加载完之前先显示一段简单的loading动画
+
+    var names=[];    //类别数组（实际用来盛放X轴坐标值）
+    var nums=[];    //销量数组（实际用来盛放Y坐标值）
+
+    $.ajax({
+        type : "post",
+        async : true,            //异步请求（同步请求将会锁住浏览器，用户其他操作必须等待请求完成才可以执行）
+        url : "/",    //请求发送到TestServlet处
+        data : {},
+        dataType : "json",        //返回数据形式为json
+        success : function(result) {
+            //请求成功时执行该函数内容，result即为服务器返回的json对象
+            if (result) {
+                for(var i=0;i<result.length;i++){
+                    names.push(result[i].name);    //挨个取出类别并填入类别数组
+                }
+                for(var i=0;i<result.length;i++){
+                    nums.push(result[i].num);    //挨个取出销量并填入销量数组
+                }
+                myChart.hideLoading();    //隐藏加载动画
+                myChart.setOption({        //加载数据图表
+                    xAxis: {
+                        data: names
+                    },
+                    series: [{
+                        // 根据名字对应到相应的系列
+                        name: '销量',
+                        data: nums
+                    }]
+                });
+
+            }
+
+        },
+        error : function(errorMsg) {
+            //请求失败时执行该函数
+            alert("图表请求数据失败!");
+            myChart.hideLoading();
+        }
+    })
+
+
+</script>
+</html>

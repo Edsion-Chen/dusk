@@ -1,0 +1,44 @@
+server:
+  port: 1120
+  tomcat:
+    uri-encoding: utf-8
+
+spring:
+  jpa:
+    database: MYSQL
+    database-platform: org.hibernate.dialect.MySQL5Dialect
+    open-in-view: false
+    show-sql: true
+
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://120.78.188.120:3306/discuz?useUnicode=true&characterEncoding=utf8&useSSL=false&autoReconnect=true
+    username: root
+    password: 123456
+
+  thymeleaf:
+    prefix: classpath:/static/
+    suffix: .html
+
+mybatis:
+  # type-aliases 扫描路径
+  type-aliases-package: com.blog.dusk.entity
+  # mapper xml 实现扫描路径
+  mapper-locations: classpath:mappers/*.xml
+  #mapper-locations: com.blog.dusk.mapper
+  property:
+    order: BEFORE
+
+#mappers
+mapper:
+  not-empty: false
+  identity: MYSQL
+  order: after
+
+# websocket log config
+logging:
+  level:
+    org.dawn.mapper: DEBUG
+    com.example.websocket: DEBUG
+
