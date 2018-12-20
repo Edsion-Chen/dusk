@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.blog.dusk.mapper.CustomerMapper" >
+  <resultMap id="BaseResultMap" type="com.blog.dusk.entity.customer" >
+    <id column="c_id" property="cId" jdbcType="INTEGER" />
+    <result column="c_name" property="cName" jdbcType="VARCHAR" />
+    <result column="c_sex" property="cSex" jdbcType="VARCHAR" />
+    <result column="c_age" property="cAge" jdbcType="VARCHAR" />
+    <result column="c_address" property="cAddress" jdbcType="VARCHAR" />
+    <result column="c_type" property="cType" jdbcType="VARCHAR" />
+    <result column="c_wechat" property="cWechat" jdbcType="VARCHAR" />
+    <result column="c_qq" property="cQq" jdbcType="VARCHAR" />
+    <result column="c_phone" property="cPhone" jdbcType="VARCHAR" />
+    <result column="c_balance" property="cBalance" jdbcType="VARCHAR" />
+    <result column="c_lastpaymoney" property="cLastpaymoney" jdbcType="DOUBLE" />
+    <result column="c_lastpaytime" property="cLastpaytime" jdbcType="TIMESTAMP" />
+    <result column="c_lastpaybyway" property="cLastpaybyway" jdbcType="VARCHAR" />
+    <result column="ylzd" property="ylzd" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    c_id, c_name, c_sex, c_age, c_address, c_type, c_wechat, c_qq, c_phone, c_balance, 
+    c_lastpaymoney, c_lastpaytime, c_lastpaybyway, ylzd
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from customer
+    where c_id = #{cId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from customer
+    where c_id = #{cId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.blog.dusk.entity.customer" >
+    insert into customer (c_id, c_name, c_sex, 
+      c_age, c_address, c_type, 
+      c_wechat, c_qq, c_phone, 
+      c_balance, c_lastpaymoney, c_lastpaytime, 
+      c_lastpaybyway, ylzd)
+    values (#{cId,jdbcType=INTEGER}, #{cName,jdbcType=VARCHAR}, #{cSex,jdbcType=VARCHAR}, 
+      #{cAge,jdbcType=VARCHAR}, #{cAddress,jdbcType=VARCHAR}, #{cType,jdbcType=VARCHAR}, 
+      #{cWechat,jdbcType=VARCHAR}, #{cQq,jdbcType=VARCHAR}, #{cPhone,jdbcType=VARCHAR}, 
+      #{cBalance,jdbcType=VARCHAR}, #{cLastpaymoney,jdbcType=DOUBLE}, #{cLastpaytime,jdbcType=TIMESTAMP}, 
+      #{cLastpaybyway,jdbcType=VARCHAR}, #{ylzd,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.blog.dusk.entity.customer" >
+    insert into customer
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cId != null" >
+        c_id,
+      </if>
+      <if test="cName != null" >
+        c_name,
+      </if>
+      <if test="cSex != null" >
+        c_sex,
+      </if>
+      <if test="cAge != null" >
+        c_age,
+      </if>
+      <if test="cAddress != null" >
+        c_address,
+      </if>
+      <if test="cType != null" >
+        c_type,
+      </if>
+      <if test="cWechat != null" >
+        c_wechat,
+      </if>
+      <if test="cQq != null" >
+        c_qq,
+      </if>
+      <if test="cPhone != null" >
+        c_phone,
+      </if>
+      <if test="cBalance != null" >
+        c_balance,
+      </if>
+      <if test="cLastpaymoney != null" >
+        c_lastpaymoney,
+      </if>
+      <if test="cLastpaytime != null" >
+        c_lastpaytime,
+      </if>
+      <if test="cLastpaybyway != null" >
+        c_lastpaybyway,
+      </if>
+      <if test="ylzd != null" >
+        ylzd,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cId != null" >
+        #{cId,jdbcType=INTEGER},
+      </if>
+      <if test="cName != null" >
+        #{cName,jdbcType=VARCHAR},
+      </if>
+      <if test="cSex != null" >
+        #{cSex,jdbcType=VARCHAR},
+      </if>
+      <if test="cAge != null" >
+        #{cAge,jdbcType=VARCHAR},
+      </if>
+      <if test="cAddress != null" >
+        #{cAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="cType != null" >
+        #{cType,jdbcType=VARCHAR},
+      </if>
+      <if test="cWechat != null" >
+        #{cWechat,jdbcType=VARCHAR},
+      </if>
+      <if test="cQq != null" >
+        #{cQq,jdbcType=VARCHAR},
+      </if>
+      <if test="cPhone != null" >
+        #{cPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="cBalance != null" >
+        #{cBalance,jdbcType=VARCHAR},
+      </if>
+      <if test="cLastpaymoney != null" >
+        #{cLastpaymoney,jdbcType=DOUBLE},
+      </if>
+      <if test="cLastpaytime != null" >
+        #{cLastpaytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cLastpaybyway != null" >
+        #{cLastpaybyway,jdbcType=VARCHAR},
+      </if>
+      <if test="ylzd != null" >
+        #{ylzd,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.blog.dusk.entity.customer" >
+    update customer
+    <set >
+      <if test="cName != null" >
+        c_name = #{cName,jdbcType=VARCHAR},
+      </if>
+      <if test="cSex != null" >
+        c_sex = #{cSex,jdbcType=VARCHAR},
+      </if>
+      <if test="cAge != null" >
+        c_age = #{cAge,jdbcType=VARCHAR},
+      </if>
+      <if test="cAddress != null" >
+        c_address = #{cAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="cType != null" >
+        c_type = #{cType,jdbcType=VARCHAR},
+      </if>
+      <if test="cWechat != null" >
+        c_wechat = #{cWechat,jdbcType=VARCHAR},
+      </if>
+      <if test="cQq != null" >
+        c_qq = #{cQq,jdbcType=VARCHAR},
+      </if>
+      <if test="cPhone != null" >
+        c_phone = #{cPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="cBalance != null" >
+        c_balance = #{cBalance,jdbcType=VARCHAR},
+      </if>
+      <if test="cLastpaymoney != null" >
+        c_lastpaymoney = #{cLastpaymoney,jdbcType=DOUBLE},
+      </if>
+      <if test="cLastpaytime != null" >
+        c_lastpaytime = #{cLastpaytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cLastpaybyway != null" >
+        c_lastpaybyway = #{cLastpaybyway,jdbcType=VARCHAR},
+      </if>
+      <if test="ylzd != null" >
+        ylzd = #{ylzd,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where c_id = #{cId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.blog.dusk.entity.customer" >
+    update customer
+    set c_name = #{cName,jdbcType=VARCHAR},
+      c_sex = #{cSex,jdbcType=VARCHAR},
+      c_age = #{cAge,jdbcType=VARCHAR},
+      c_address = #{cAddress,jdbcType=VARCHAR},
+      c_type = #{cType,jdbcType=VARCHAR},
+      c_wechat = #{cWechat,jdbcType=VARCHAR},
+      c_qq = #{cQq,jdbcType=VARCHAR},
+      c_phone = #{cPhone,jdbcType=VARCHAR},
+      c_balance = #{cBalance,jdbcType=VARCHAR},
+      c_lastpaymoney = #{cLastpaymoney,jdbcType=DOUBLE},
+      c_lastpaytime = #{cLastpaytime,jdbcType=TIMESTAMP},
+      c_lastpaybyway = #{cLastpaybyway,jdbcType=VARCHAR},
+      ylzd = #{ylzd,jdbcType=VARCHAR}
+    where c_id = #{cId,jdbcType=INTEGER}
+  </update>
+
+  <select id="findallcustomer" resultType="com.blog.dusk.entity.customer">
+    SELECT * FROM customer;
+  </select>
+</mapper>
