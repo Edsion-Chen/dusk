@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>客户列表</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+    <style type="text/css">
+        .pagination-plugin {
+            width: 100%;
+        }
+        .container{
+            width: 100%;
+        }
+    </style>
+    <link href="https://cdn.bootcss.com/mdui/0.4.1/css/mdui.min.css" rel="stylesheet">
+    <link href="mdui/pagination-plugin.css" rel="stylesheet">
+
+    <!-- 新 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
+    <!-- 可选的Bootstrap主题文件（一般不用引入） -->
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap-theme.min.css">
+    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/1.12.1/jquery.js"></script>
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+</head>
+
+<body class="mdui-theme-primary-indigo mdui-theme-accent-pink">
+<nav class="navbar navbar-inverse" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="home.html">后台管理系统</a>
+        </div>
+        <div>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="home.html">首页</a></li>
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        操作列表 <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="active"><a href="#">客户列表</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">物品列表</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">历史记录</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">服务列表</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">退出(Exit)</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="pagination-plugin">
+</div>
+
+<script src="https://cdn.bootcss.com/jquery/1.12.1/jquery.js"></script>
+<script src="https://cdn.bootcss.com/mdui/0.4.1/js/mdui.min.js"></script>
+<script src="mdui/pagination-plugin.js"></script>
+
+<script type="text/javascript">
+    var table_data;
+    function init() {
+        var default_num = 1, default_size = 5;
+        $.ajax({
+            url: "/customer/page",
+            datType: "JSON",
+            data: {
+                "pageNum": default_num,
+                "pageSize": default_size
+            },
+            success: function (rest) {
+                if (rest != null && rest != "") {
+                    var options = {
+                        pageNum: rest.pageNum,
+                        pageSize: rest.pageSize,
+                        title: ['序号', '姓名', '性别','年龄', '地址','类型','余额'],
+                        data_title: ['#', 'cName', 'cSex','cAge', 'cAddress','cType','cBalance'],
+                        data: rest.list,
+                        countPage: rest.pages
+                    };
+                    mduiPagination.init(options);
+                    mdui.mutation();
+                } else {
+                    alert("暂无数据");
+                }
+            }
+        });
+    }
+    init();
+
+    function getData(num, size) {
+        var options = {};
+        $.ajax({
+            url: "/customer/page",
+            async: false,
+            datType: "JSON",
+            data: {
+                "pageNum": num,
+                "pageSize": size
+            },
+            success: function (rest) {
+                if (rest != null && rest != "") {
+                    options = {
+                        pageNum: rest.pageNum,
+                        pageSize: rest.pageSize,
+                        data: rest.list,
+                        countPage: rest.pages
+                    };
+                } else {
+                    alert("暂无数据");
+                }
+            }
+        });
+        return options;
+    }
+</script>
+
+</body>
+
+</html>
