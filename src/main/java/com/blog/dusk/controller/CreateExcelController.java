@@ -1,24 +1,14 @@
 package com.blog.dusk.controller;
 
-import com.blog.dusk.Repository.LoginRepository;
-import com.blog.dusk.entity.Login;
-import com.blog.dusk.mapper.LoginMapper;
 import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.hssf.util.HSSFColor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.Map;
 
 @RestController
 public class CreateExcelController {
-
-    @Autowired
-    LoginMapper loginMapper;
 
     public static void main(String[] args){
         //第一步创建workbook

@@ -3,6 +3,7 @@ package com.blog.dusk.utils;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 public class DateUtil {
@@ -42,5 +43,14 @@ public class DateUtil {
         return nowDate;
     }
 
+    /**
+     * 获取当前年份
+     * @return
+     */
+    public static String getCurrYear(){
+        SimpleDateFormat format = new SimpleDateFormat("yyyy");
+        String currTime = format.format(Calendar.getInstance().getTime());
+        return currTime;
+    }
 
 }

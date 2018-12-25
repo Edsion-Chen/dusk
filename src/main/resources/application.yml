@@ -29,6 +29,9 @@ mybatis:
   #mapper-locations: com.blog.dusk.mapper
   property:
     order: BEFORE
+  #开启驼峰映射
+  configuration:
+    map-underscore-to-camel-case: true
 
 #mappers
 mapper:
@@ -36,9 +39,17 @@ mapper:
   identity: MYSQL
   order: after
 
+#pagehelper
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+
 # websocket log config
 logging:
   level:
     org.dawn.mapper: DEBUG
     com.example.websocket: DEBUG
+
 

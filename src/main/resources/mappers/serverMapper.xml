@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.blog.dusk.mapper.serverMapper" >
+  <resultMap id="BaseResultMap" type="com.blog.dusk.entity.server" >
+    <id column="s_id" property="sId" jdbcType="INTEGER" />
+    <result column="s_name" property="sName" jdbcType="VARCHAR" />
+    <result column="s_price" property="sPrice" jdbcType="VARCHAR" />
+    <result column="s_stock" property="sStock" jdbcType="VARCHAR" />
+    <result column="s_beauticianname" property="sBeauticianname" jdbcType="VARCHAR" />
+    <result column="s_beauticianid" property="sBeauticianid" jdbcType="VARCHAR" />
+    <result column="s_cost" property="sCost" jdbcType="VARCHAR" />
+    <result column="s_duration" property="sDuration" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    s_id, s_name, s_price, s_stock, s_beauticianname, s_beauticianid, s_cost, s_duration
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from server
+    where s_id = #{sId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from server
+    where s_id = #{sId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.blog.dusk.entity.server" >
+    insert into server (s_id, s_name, s_price, 
+      s_stock, s_beauticianname, s_beauticianid, 
+      s_cost, s_duration)
+    values (#{sId,jdbcType=INTEGER}, #{sName,jdbcType=VARCHAR}, #{sPrice,jdbcType=VARCHAR}, 
+      #{sStock,jdbcType=VARCHAR}, #{sBeauticianname,jdbcType=VARCHAR}, #{sBeauticianid,jdbcType=VARCHAR}, 
+      #{sCost,jdbcType=VARCHAR}, #{sDuration,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.blog.dusk.entity.server" >
+    insert into server
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sId != null" >
+        s_id,
+      </if>
+      <if test="sName != null" >
+        s_name,
+      </if>
+      <if test="sPrice != null" >
+        s_price,
+      </if>
+      <if test="sStock != null" >
+        s_stock,
+      </if>
+      <if test="sBeauticianname != null" >
+        s_beauticianname,
+      </if>
+      <if test="sBeauticianid != null" >
+        s_beauticianid,
+      </if>
+      <if test="sCost != null" >
+        s_cost,
+      </if>
+      <if test="sDuration != null" >
+        s_duration,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sId != null" >
+        #{sId,jdbcType=INTEGER},
+      </if>
+      <if test="sName != null" >
+        #{sName,jdbcType=VARCHAR},
+      </if>
+      <if test="sPrice != null" >
+        #{sPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="sStock != null" >
+        #{sStock,jdbcType=VARCHAR},
+      </if>
+      <if test="sBeauticianname != null" >
+        #{sBeauticianname,jdbcType=VARCHAR},
+      </if>
+      <if test="sBeauticianid != null" >
+        #{sBeauticianid,jdbcType=VARCHAR},
+      </if>
+      <if test="sCost != null" >
+        #{sCost,jdbcType=VARCHAR},
+      </if>
+      <if test="sDuration != null" >
+        #{sDuration,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.blog.dusk.entity.server" >
+    update server
+    <set >
+      <if test="sName != null" >
+        s_name = #{sName,jdbcType=VARCHAR},
+      </if>
+      <if test="sPrice != null" >
+        s_price = #{sPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="sStock != null" >
+        s_stock = #{sStock,jdbcType=VARCHAR},
+      </if>
+      <if test="sBeauticianname != null" >
+        s_beauticianname = #{sBeauticianname,jdbcType=VARCHAR},
+      </if>
+      <if test="sBeauticianid != null" >
+        s_beauticianid = #{sBeauticianid,jdbcType=VARCHAR},
+      </if>
+      <if test="sCost != null" >
+        s_cost = #{sCost,jdbcType=VARCHAR},
+      </if>
+      <if test="sDuration != null" >
+        s_duration = #{sDuration,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where s_id = #{sId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.blog.dusk.entity.server" >
+    update server
+    set s_name = #{sName,jdbcType=VARCHAR},
+      s_price = #{sPrice,jdbcType=VARCHAR},
+      s_stock = #{sStock,jdbcType=VARCHAR},
+      s_beauticianname = #{sBeauticianname,jdbcType=VARCHAR},
+      s_beauticianid = #{sBeauticianid,jdbcType=VARCHAR},
+      s_cost = #{sCost,jdbcType=VARCHAR},
+      s_duration = #{sDuration,jdbcType=VARCHAR}
+    where s_id = #{sId,jdbcType=INTEGER}
+  </update>
+</mapper>

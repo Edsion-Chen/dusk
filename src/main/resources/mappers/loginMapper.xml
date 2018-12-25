@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.blog.dusk.mapper.loginMapper" >
+  <resultMap id="BaseResultMap" type="com.blog.dusk.entity.login" >
+    <id column="uid" property="uid" jdbcType="INTEGER" />
+    <result column="u_name" property="uName" jdbcType="VARCHAR" />
+    <result column="u_sex" property="uSex" jdbcType="VARCHAR" />
+    <result column="u_age" property="uAge" jdbcType="VARCHAR" />
+    <result column="u_phone" property="uPhone" jdbcType="VARCHAR" />
+    <result column="u_address" property="uAddress" jdbcType="VARCHAR" />
+    <result column="u_type" property="uType" jdbcType="VARCHAR" />
+    <result column="u_nickname" property="uNickname" jdbcType="VARCHAR" />
+    <result column="u_isdelete" property="uIsdelete" jdbcType="VARCHAR" />
+    <result column="u_isadmin" property="uIsadmin" jdbcType="VARCHAR" />
+    <result column="u_lastlogintime" property="uLastlogintime" jdbcType="TIMESTAMP" />
+    <result column="u_lastamount" property="uLastamount" jdbcType="VARCHAR" />
+    <result column="u_lastloginip" property="uLastloginip" jdbcType="VARCHAR" />
+    <result column="u_pwd" property="uPwd" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    uid, u_name, u_sex, u_age, u_phone, u_address, u_type, u_nickname, u_isdelete, u_isadmin, 
+    u_lastlogintime, u_lastamount, u_lastloginip, u_pwd
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from login
+    where uid = #{uid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from login
+    where uid = #{uid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.blog.dusk.entity.login" >
+    insert into login (uid, u_name, u_sex, 
+      u_age, u_phone, u_address, 
+      u_type, u_nickname, u_isdelete, 
+      u_isadmin, u_lastlogintime, u_lastamount, 
+      u_lastloginip, u_pwd)
+    values (#{uid,jdbcType=INTEGER}, #{uName,jdbcType=VARCHAR}, #{uSex,jdbcType=VARCHAR}, 
+      #{uAge,jdbcType=VARCHAR}, #{uPhone,jdbcType=VARCHAR}, #{uAddress,jdbcType=VARCHAR}, 
+      #{uType,jdbcType=VARCHAR}, #{uNickname,jdbcType=VARCHAR}, #{uIsdelete,jdbcType=VARCHAR}, 
+      #{uIsadmin,jdbcType=VARCHAR}, #{uLastlogintime,jdbcType=TIMESTAMP}, #{uLastamount,jdbcType=VARCHAR}, 
+      #{uLastloginip,jdbcType=VARCHAR}, #{uPwd,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.blog.dusk.entity.login" >
+    insert into login
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="uid != null" >
+        uid,
+      </if>
+      <if test="uName != null" >
+        u_name,
+      </if>
+      <if test="uSex != null" >
+        u_sex,
+      </if>
+      <if test="uAge != null" >
+        u_age,
+      </if>
+      <if test="uPhone != null" >
+        u_phone,
+      </if>
+      <if test="uAddress != null" >
+        u_address,
+      </if>
+      <if test="uType != null" >
+        u_type,
+      </if>
+      <if test="uNickname != null" >
+        u_nickname,
+      </if>
+      <if test="uIsdelete != null" >
+        u_isdelete,
+      </if>
+      <if test="uIsadmin != null" >
+        u_isadmin,
+      </if>
+      <if test="uLastlogintime != null" >
+        u_lastlogintime,
+      </if>
+      <if test="uLastamount != null" >
+        u_lastamount,
+      </if>
+      <if test="uLastloginip != null" >
+        u_lastloginip,
+      </if>
+      <if test="uPwd != null" >
+        u_pwd,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="uid != null" >
+        #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="uName != null" >
+        #{uName,jdbcType=VARCHAR},
+      </if>
+      <if test="uSex != null" >
+        #{uSex,jdbcType=VARCHAR},
+      </if>
+      <if test="uAge != null" >
+        #{uAge,jdbcType=VARCHAR},
+      </if>
+      <if test="uPhone != null" >
+        #{uPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="uAddress != null" >
+        #{uAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="uType != null" >
+        #{uType,jdbcType=VARCHAR},
+      </if>
+      <if test="uNickname != null" >
+        #{uNickname,jdbcType=VARCHAR},
+      </if>
+      <if test="uIsdelete != null" >
+        #{uIsdelete,jdbcType=VARCHAR},
+      </if>
+      <if test="uIsadmin != null" >
+        #{uIsadmin,jdbcType=VARCHAR},
+      </if>
+      <if test="uLastlogintime != null" >
+        #{uLastlogintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="uLastamount != null" >
+        #{uLastamount,jdbcType=VARCHAR},
+      </if>
+      <if test="uLastloginip != null" >
+        #{uLastloginip,jdbcType=VARCHAR},
+      </if>
+      <if test="uPwd != null" >
+        #{uPwd,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.blog.dusk.entity.login" >
+    update login
+    <set >
+      <if test="uName != null" >
+        u_name = #{uName,jdbcType=VARCHAR},
+      </if>
+      <if test="uSex != null" >
+        u_sex = #{uSex,jdbcType=VARCHAR},
+      </if>
+      <if test="uAge != null" >
+        u_age = #{uAge,jdbcType=VARCHAR},
+      </if>
+      <if test="uPhone != null" >
+        u_phone = #{uPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="uAddress != null" >
+        u_address = #{uAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="uType != null" >
+        u_type = #{uType,jdbcType=VARCHAR},
+      </if>
+      <if test="uNickname != null" >
+        u_nickname = #{uNickname,jdbcType=VARCHAR},
+      </if>
+      <if test="uIsdelete != null" >
+        u_isdelete = #{uIsdelete,jdbcType=VARCHAR},
+      </if>
+      <if test="uIsadmin != null" >
+        u_isadmin = #{uIsadmin,jdbcType=VARCHAR},
+      </if>
+      <if test="uLastlogintime != null" >
+        u_lastlogintime = #{uLastlogintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="uLastamount != null" >
+        u_lastamount = #{uLastamount,jdbcType=VARCHAR},
+      </if>
+      <if test="uLastloginip != null" >
+        u_lastloginip = #{uLastloginip,jdbcType=VARCHAR},
+      </if>
+      <if test="uPwd != null" >
+        u_pwd = #{uPwd,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where uid = #{uid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.blog.dusk.entity.login" >
+    update login
+    set u_name = #{uName,jdbcType=VARCHAR},
+      u_sex = #{uSex,jdbcType=VARCHAR},
+      u_age = #{uAge,jdbcType=VARCHAR},
+      u_phone = #{uPhone,jdbcType=VARCHAR},
+      u_address = #{uAddress,jdbcType=VARCHAR},
+      u_type = #{uType,jdbcType=VARCHAR},
+      u_nickname = #{uNickname,jdbcType=VARCHAR},
+      u_isdelete = #{uIsdelete,jdbcType=VARCHAR},
+      u_isadmin = #{uIsadmin,jdbcType=VARCHAR},
+      u_lastlogintime = #{uLastlogintime,jdbcType=TIMESTAMP},
+      u_lastamount = #{uLastamount,jdbcType=VARCHAR},
+      u_lastloginip = #{uLastloginip,jdbcType=VARCHAR},
+      u_pwd = #{uPwd,jdbcType=VARCHAR}
+    where uid = #{uid,jdbcType=INTEGER}
+  </update>
+
+  <update id="updateUserLoginIp" parameterType="java.util.Map">
+    update login SET u_lastloginip = #{ip,jdbcType=INTEGER} WHERE u_phone = #{phone,jdbcType=VARCHAR};
+  </update>
+
+  <select id="findbyphone" parameterType="java.lang.String" resultType="com.blog.dusk.entity.login">
+    SELECT * FROM login WHERE u_phone = #{phone,jdbcType=VARCHAR};
+  </select>
+</mapper>

@@ -1,13 +1,13 @@
 package com.blog.dusk.entity;
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.Configuration;
-
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.util.Date;
+
 @Entity
-@Table(name = "login")
-public class Login {
+public class login {
     @Id
     @GeneratedValue
     @Column(name = "uid")
@@ -48,6 +48,9 @@ public class Login {
 
     @Column(name = "u_lastloginip")
     private String uLastloginip;
+
+    @Column(name = "u_pwd")
+    private String uPwd;
 
     public Integer getUid() {
         return uid;
@@ -151,5 +154,13 @@ public class Login {
 
     public void setuLastloginip(String uLastloginip) {
         this.uLastloginip = uLastloginip == null ? null : uLastloginip.trim();
+    }
+
+    public String getuPwd() {
+        return uPwd;
+    }
+
+    public void setuPwd(String uPwd) {
+        this.uPwd = uPwd == null ? null : uPwd.trim();
     }
 }
