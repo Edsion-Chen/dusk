@@ -125,4 +125,8 @@
       g_service = #{gService,jdbcType=VARCHAR}
     where g_id = #{gId,jdbcType=INTEGER}
   </update>
+
+  <select id="selectGoodsList" resultType="com.blog.dusk.entity.goods">
+    SELECT * FROM goods;
+  </select>
 </mapper>

@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
-    <title>客户列表</title>
+    <title>商品列表</title>
     <link rel="icon" href="favicon.ico" type="image/x-icon" />
     <style type="text/css">
         .pagination-plugin {
@@ -45,9 +45,9 @@
                         操作列表 <b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu">
-                        <li class="active"><a href="listcustomer.html">客户列表</a></li>
+                        <li><a href="listcustomer.html">客户列表</a></li>
                         <li class="divider"></li>
-                        <li><a href="listgoods.html">物品列表</a></li>
+                        <li class="active"><a href="listgoods.html">物品列表</a></li>
                         <li class="divider"></li>
                         <li><a href="#">历史记录</a></li>
                         <li class="divider"></li>
@@ -73,7 +73,7 @@
     function init() {
         var default_num = 1, default_size = 5;
         $.ajax({
-            url: "/customer/page",
+            url: "/goods/page",
             datType: "JSON",
             data: {
                 "pageNum": default_num,
@@ -84,8 +84,8 @@
                     var options = {
                         pageNum: rest.pageNum,
                         pageSize: rest.pageSize,
-                        title: ['序号', '姓名', '性别','年龄', '地址','类型','余额'],
-                        data_title: ['#', 'cName', 'cSex','cAge', 'cAddress','cType','cBalance'],
+                        title: ['序号', '名称', '入库时间','成本', '售价','用途(服务)'],
+                        data_title: ['gId', 'gName', 'gInserttime','gCost', 'gSale','gService'],
                         data: rest.list,
                         countPage: rest.pages
                     };
@@ -102,7 +102,7 @@
     function getData(num, size) {
         var options = {};
         $.ajax({
-            url: "/customer/page",
+            url: "/goods/page",
             async: false,
             datType: "JSON",
             data: {
