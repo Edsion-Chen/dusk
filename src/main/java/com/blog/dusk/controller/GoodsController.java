@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 import java.text.ParseException;
 import java.time.DateTimeException;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -48,16 +49,28 @@ public class GoodsController {
      * @return
      */
     @RequestMapping("Addgoods")
-    public String goodsAdd(HttpServletRequest request){
+    public void goodsAdd(HttpServletRequest request) throws ParseException{
         String gName = request.getParameter("name");
-        String gInserttime = request.getParameter("time");
-        String gCost = request.getParameter("cost");
-        String gSale = request.getParameter("sale");
-        String gDiscount = request.getParameter("discount");
-        String gStock = request.getParameter("stock");
+        String cost = request.getParameter("cost");
+        double gCost = Double.valueOf(cost);
+        String sale = request.getParameter("sale");
+        double gSale = Double.valueOf(sale);
+        String discount = request.getParameter("discount");
+        double gDiscount = Double.valueOf(discount);
+        String stock = request.getParameter("stock");
+        int gStock = Integer.valueOf(stock);
         String gService = request.getParameter("service");
+        Date gInserttime = DateUtil.getDateTime();
 
-        return "";
+        goods good = new goods();
+        good.setgName(gName);
+        good.setgStock(gStock);
+        good.setgInserttime(gInserttime);
+        good.setgService(gService);
+        good.setgCost(gCost);
+        good.setgSale(gSale);
+        good.setgDiscount(gDiscount);
+        goodsMapper.insert(good);
     }
 
     /**
