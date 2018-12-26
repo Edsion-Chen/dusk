@@ -129,4 +129,22 @@
   <select id="selectGoodsList" resultType="com.blog.dusk.entity.goods">
     SELECT * FROM goods;
   </select>
+
+  <insert id="insertGoods" parameterType="com.blog.dusk.entity.goods">
+      INSERT INTO goods (`g_name`, `g_inserttime`, `g_cost`, `g_sale`, `g_Discount`, `g_Stock`, `g_service`)
+      VALUES (
+          g_name = #{gName,jdbcType=VARCHAR},
+          g_inserttime = #{gInserttime,jdbcType=TIMESTAMP},
+          g_cost = #{gCost,jdbcType=DOUBLE},
+          g_sale = #{gSale,jdbcType=DOUBLE},
+          g_Discount = #{gDiscount,jdbcType=DOUBLE},
+          g_Stock = #{gStock,jdbcType=INTEGER},
+          g_service = #{gService,jdbcType=VARCHAR}
+      );
+
+  </insert>
+
+  <delete id="deleteById" parameterType="java.lang.Integer">
+    DELETE FROM goods WHERE g_id = #{gId,jdbcType=INTEGER};
+  </delete>
 </mapper>

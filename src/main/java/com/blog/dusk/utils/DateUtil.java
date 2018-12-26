@@ -53,4 +53,14 @@ public class DateUtil {
         return currTime;
     }
 
+    /**
+     * 获取当前年份
+     * @return
+     */
+    public static String getCurrTime(){
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-mm-dd hh24:mm:ss");
+        String currTime = format.format(Calendar.getInstance().getTime());
+        return currTime;
+    }
+
 }

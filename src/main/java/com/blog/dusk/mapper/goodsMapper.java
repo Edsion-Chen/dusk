@@ -17,7 +17,26 @@ public interface goodsMapper {
 
     int updateByPrimaryKeySelective(goods record);
 
-    int updateByPrimaryKey(goods record);
+    /**
+     * 更新
+     * @param record
+     */
+    void updateByPrimaryKey(goods record);
 
+    /**
+     * 查询列表
+     * @return
+     */
     List<goods> selectGoodsList();
+
+    /**
+     * 增加商品
+     * @param goods
+     */
+    void insertGoods(goods goods);
+
+    /**根据id删除
+     * @param gId
+     */
+    void deleteById(Integer gId);
 }

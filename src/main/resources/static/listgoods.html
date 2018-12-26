@@ -10,8 +10,14 @@
         .pagination-plugin {
             width: 100%;
         }
-        .container{
-            width: 100%;
+
+        #del{
+            margin-top: 20px;
+            padding: 0px auto;
+        }
+
+        #serchname{
+            height: 45px;
         }
     </style>
     <link href="https://cdn.bootcss.com/mdui/0.4.1/css/mdui.min.css" rel="stylesheet">
@@ -21,12 +27,17 @@
     <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
     <!-- 可选的Bootstrap主题文件（一般不用引入） -->
     <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap-theme.min.css">
+
+    <script src="https://cdn.bootcss.com/jquery/1.12.1/jquery.js"></script>
+
     <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
     <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
     <script src="https://cdn.bootcss.com/jquery/1.12.1/jquery.js"></script>
     <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
     <script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 
+    <script src="https://cdn.bootcss.com/mdui/0.4.1/js/mdui.min.js"></script>
+    <script src="mdui/pagination-plugin.js"></script>
     <script src="js/nav_click.js" type="text/javascript"></script>
 </head>
 
@@ -61,12 +72,77 @@
     </div>
 </nav>
 
+<div class="row">
+    <div class="col-md-5"></div>
+    <div class="col-md-3">
+        <div class="form-group">
+            <label for="txt_name"></label>
+            <input type="text" name="txt_departmentname" class="form-control" id="serchname" placeholder="商品编号">
+        </div>
+    </div>
+    <div class="col-md-2">
+        <button class="btn btn-lg btn-primary btn-block" id="del" onclick="del()" type="button">删除</button>
+    </div>
+</div>
+
 <div class="pagination-plugin">
 </div>
 
-<script src="https://cdn.bootcss.com/jquery/1.12.1/jquery.js"></script>
-<script src="https://cdn.bootcss.com/mdui/0.4.1/js/mdui.min.js"></script>
-<script src="mdui/pagination-plugin.js"></script>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">新增</h4>
+            </div>
+            <div class="modal-body">
+
+                <div class="form-group" style="display:none;">
+                    <label for="txt_id">序号</label>
+                    <input type="text" name="txt_departmentname" class="form-control" id="txt_id" placeholder="序号">
+                </div>
+
+                <div class="form-group">
+                    <label for="txt_name">名称</label>
+                    <input type="text" name="txt_departmentname" class="form-control" id="txt_name" placeholder="名称">
+                </div>
+                <div class="form-group">
+                    <label for="txt_time">入库时间</label>
+                    <input type="text" name="txt_parentdepartment" class="form-control" id="txt_time" placeholder="入库时间">
+                </div>
+                <div class="form-group">
+                    <label for="txt_cost">成本</label>
+                    <input type="text" name="txt_statu" class="form-control" id="txt_cost" placeholder="成本">
+                </div>
+
+                <div class="form-group">
+                    <label for="txt_stock">库存</label>
+                    <input type="text" name="txt_statu" class="form-control" id="txt_stock" placeholder="库存">
+                </div>
+
+                <div class="form-group">
+                    <label for="txt_discount">折扣</label>
+                    <input type="text" name="txt_statu" class="form-control" id="txt_discount" placeholder="折扣">
+                </div>
+
+                <div class="form-group">
+                    <label for="txt_sale">售价</label>
+                    <input type="text" name="txt_statu" class="form-control" id="txt_sale" placeholder="售价">
+                </div>
+                <div class="form-group">
+                    <label for="txt_service">用途(服务)</label>
+                    <input type="text" name="txt_statu" class="form-control" id="txt_service" placeholder="用途(服务)">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>关闭</button>
+                <button type="button" id="btn_submit" class="btn btn-primary" data-dismiss="modal" onclick="save()"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--?-->
 
 <script type="text/javascript">
     var table_data;
@@ -84,8 +160,8 @@
                     var options = {
                         pageNum: rest.pageNum,
                         pageSize: rest.pageSize,
-                        title: ['序号', '名称', '入库时间','成本', '售价','用途(服务)'],
-                        data_title: ['gId', 'gName', 'gInserttime','gCost', 'gSale','gService'],
+                        title: ['#','商品编号', '名称', '入库时间','成本','库存','折扣', '售价','用途(服务)'],
+                        data_title: ['gId','gId', 'gName', 'gInserttime','gCost','gStock','gDiscount', 'gSale','gService'],
                         data: rest.list,
                         countPage: rest.pages
                     };
@@ -124,11 +200,92 @@
         });
         return options;
     }
-
-    $('span').click(getData(1,5));
-
 </script>
 
 </body>
+<script type="text/javascript">
+    <!--设置1秒后此js开始渲染 避免出现table未渲染成功导致失败-->
+    setTimeout(init1,1000);
+    function init1(){
+        var trs=document.getElementsByTagName('tr');
+        for(var i=0;i<trs.length;i++){
+            trs[i].onclick=doclick;
+        }
+    }
+    function doclick(){
+        var tabs = this.innerHTML.split("<th>");
+        for (var i=0;i<tabs.length;i++){
+            console.log(tabs[i]);
+            tabs[i]=tabs[i].split("</th>");
+            document.getElementById("txt_id").value=tabs[2]=clear(tabs[2]);
+            document.getElementById("txt_name").value=tabs[3];
+            document.getElementById("txt_time").value=tabs[4];
+            document.getElementById("txt_cost").value=tabs[5];
+            document.getElementById("txt_stock").value=tabs[6];
+            document.getElementById("txt_discount").value=tabs[7];
+            document.getElementById("txt_sale").value=tabs[8];
+            document.getElementById("txt_service").value=tabs[9];
+        }
+        $("#myModalLabel").text("修改");
+        $('#myModal').modal();
+    }
 
+    //根据ID删除
+    function del() {
+        var id = document.getElementById("serchname").value;
+        if (id == "" && id == null){
+            alert("输入不能为空");
+        }
+        var data = "id="+id;
+        $.ajax({
+            url:"/goods/deleteGoods",
+            data:data,
+            datType: "text",
+            success:function (rest) {
+                window.location.href="listgoods.html";
+            },
+            error:function (rest) {
+                alert("检查输入数据!");
+            }
+        })
+    }
+
+    function clear(str) {
+        str = str.replace(/,/g, "");//取消字符串中出现的所有逗号
+        return str;
+    }
+
+    function save() {
+        var name = document.getElementById("txt_name").value;
+        name = clear(name);
+        var id = document.getElementById("txt_id").value;
+        id = clear(id);
+        var cost = document.getElementById("txt_cost").value;
+        cost = clear(cost);
+        var sale = document.getElementById("txt_sale").value;
+        sale = clear(sale);
+        var service = document.getElementById("txt_service").value;
+        service = clear(service);
+        var stock = document.getElementById("txt_stock").value;
+        stock = clear(stock);
+        var discount = document.getElementById("txt_discount").value;
+        discount = clear(discount);
+        if(stock =="" || stock == null ||discount =="" || discount == null ||id =="" || id == null || name == ""|| name ==null ||cost=="" || cost ==null || sale =="" || sale ==null || service=="" || service==null){
+            alert("检查输入的数据");
+            return;
+        }
+        var data = "name=" + name + "&cost=" +cost+ "&sale=" + sale + "&service=" + service +"&stock=" +stock+ "&discount="+discount+"&id="+id;
+        $.ajax({
+            url:"/goods/updateGoods",
+            dataType:"text",
+            data:data,
+            success:function (rest) {
+                window.location.href="listgoods.html";
+            },
+            error:function (rest) {
+                alert(rest);
+            }
+        })
+    }
+</script>
 </html>
