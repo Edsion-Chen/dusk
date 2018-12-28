@@ -30,10 +30,10 @@
 		</dependency>
 
 		<!--&lt;!&ndash;thymeleaf&ndash;&gt;-->
-		<!--<dependency>-->
-			<!--<groupId>org.springframework.boot</groupId>-->
-			<!--<artifactId>spring-boot-starter-thymeleaf</artifactId>-->
-		<!--</dependency>-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
 
 		<!--因配置外部TOMCAT 而配置-->
 		<dependency>
